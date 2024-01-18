@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SISCOM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+        
+        #calendar {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        #clock {
+            text-align: center;
+            font-size: 36px;
+        }
+        
+        .login-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #e23535;
+            color: #ffffff;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .login-button:hover {
+            background-color: #a04549;
+        }
+        
+        .image-button {
+            display: inline-block;
+            padding: 10px;
+            background-color: #25D366;
+            color: #ffffff;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: left;
+            text-decoration: none;
+        }
+        
+        .image-button img {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+        function updateCalendar() {
+            var currentDate = new Date();
+            var options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            var calendarElement = document.getElementById('calendar');
+            calendarElement.innerHTML = currentDate.toLocaleDateString(undefined, options);
+        }
+
+        function updateClock() {
+            var currentDateTime = new Date();
+            var dayOfWeek = currentDateTime.getDay(); // 0 (domingo) a 6 (sábado)
+            var hours = currentDateTime.getHours();
+            var minutes = currentDateTime.getMinutes();
+            var seconds = currentDateTime.getSeconds();
+            var clockElement = document.getElementById('clock');
+            clockElement.innerHTML = hours + ':' + minutes + ':' + seconds;
+
+            // Bloquear el botón de inicio de sesión si no está en el rango permitido
+            var loginButton = document.getElementById('loginButton');
+            if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+                if ((hours === 6 && minutes >= 10) || (hours === 7 && minutes < 5)) {
+                    loginButton.style.display = 'block';
+                } else {
+                    loginButton.style.display = 'none';
+                }
+            } else {
+                loginButton.style.display = 'none';
+            }
+
+            setTimeout(updateClock, 1000); // Actualiza el reloj cada segundo
+        }
+    </script>
+</head>
+
+<body onload="updateCalendar(); updateClock();">
+    <h1>ASISTENCIA PERSONAL SISCOM</h1>
+
+    <div id="calendar"></div>
+    <div id="clock"></div>
+    <a href="login.html" id="loginButton" class="login-button">Iniciar sesión</a>
+    <a href="https://api.whatsapp.com/send?phone=593999660245" class="image-button" style="background-color: #25D366;">
+        <img src="img/whatsap.png" alt="CONTACTANOS">ESCRIBENOS</a>
+</body>
+
+</html>
+

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registro de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+        
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #cccccc;
+            box-sizing: border-box;
+        }
+        
+        input[type="time"][readonly],
+        input[type="date"][readonly] {
+            background-color: #f2f2f2;
+            cursor: not-allowed;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4caf50;
+            color: #ffffff;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button[type="button"] {
+            background-color: #cccccc;
+        }
+        
+        button[type="submit"] {
+            background-color: #4caf50;
+        }
+        
+        #location-text {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        function getDatos() {
+            var cedula = document.getElementById('cedula').value;
+            var nombre = document.getElementById('nombre').value;
+            var apellido = document.getElementById('apellido').value;
+            var fecha = document.getElementById('fecha').value;
+
+            var mensaje = "Cedula: " + cedula + "\n" +
+                "Nombre: " + nombre + "\n" +
+                "Apellido: " + apellido + "\n" +
+                "Fecha: " + fecha;
+            window.alert(mensaje);
+
+
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Registro de Usuario</h1>
+
+    <form action="#" method="POST" enctype="multipart/form-data">
+
+        <label for="cedula">Cedula:</label>
+        <input type="text" id="cedula" name="cedula" required>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="apellido">Apellidos:</label>
+        <input type="text" id="apellido" name="apellido" required>
+
+        <label for="fecha">Fecha Nacimiento:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <button type="submit" onclick="getDatos()">Registrar</button>
+        <button onclick="goBack()">Atrás</button>
+    </form>
+</body>
+
+</html>

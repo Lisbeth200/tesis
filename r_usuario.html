@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registro de Usuario</title>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        
+        article {
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            margin: 50px auto;
+            width: 70%;
+            border: 2px solid #FFA800;
+            border-radius: 10px;
+            box-shadow: 0 0 4px #FFA800;
+            color: #FFA800;
+            text-align: center;
+        }
+        
+        #parar {
+            display: block;
+            margin: 20px auto 30px;
+            width: 100px;
+            border: 2px solid #FFA800;
+            border-radius: 10px;
+            box-shadow: 0 0 4px #FFA800;
+            color: #FFA800;
+        }
+        
+        #parar:hover {
+            border: 2px solid #2E5E90;
+            box-shadow: 0 0 4px #2E5E90;
+            color: #2E5E90;
+        }
+        
+        #mapa {
+            height: 400px;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+        
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #cccccc;
+            box-sizing: border-box;
+        }
+        
+        input[type="time"][readonly],
+        input[type="date"][readonly] {
+            background-color: #f2f2f2;
+            cursor: not-allowed;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4caf50;
+            color: #ffffff;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button[type="button"] {
+            background-color: #cccccc;
+        }
+        
+        button[type="submit"] {
+            background-color: #4caf50;
+        }
+        
+        #location-text {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocalización no es soportada por este navegador.");
+            }
+        }
+
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var locationInfo = "Latitud: " + latitude + "\nLongitud: " + longitude;
+            alert(locationInfo);
+        }
+
+        function setDateTime() {
+            var now = new Date();
+
+            var fecha = now.toISOString().slice(0, 10);
+            var hora = now.toTimeString().slice(0, 5);
+
+            document.getElementById("fecha").value = fecha;
+            document.getElementById("hora").value = hora;
+        }
+
+        window.addEventListener("DOMContentLoaded", function() {
+            setDateTime();
+            document.getElementById("fecha").readOnly = true;
+            document.getElementById("hora").readOnly = true;
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Registro de Usuario</h1>
+
+    <form action="#" method="POST" enctype="multipart/form-data">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required>
+
+        <label for="imagen">Imagen:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*" required>
+
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+
+        <button type="button" onclick="getLocation()">Obtener Ubicación</button>
+        <article id="mapa"></article>
+        <input type="button" id="parar" value="Parar" />
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <script>
+        setDateTime();
+        document.getElementById("fecha").readOnly = true;
+        document.getElementById("hora").readOnly = true;
+    </script>
+</body>
+
+</html>

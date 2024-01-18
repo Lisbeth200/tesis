@@ -1,0 +1,273 @@
+*,*::before,*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root{
+  --c1: white;
+  --c2: black;
+  --cb: hsl(0,0%,95%);
+  --cs: hsl(0,0%,80%);
+  --cbs: dodgerblue;
+  --cbm: var(--c2);
+  --cbh: var(--c2);
+}
+.box_reloj{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  counter-reset: numero;
+  background-color: var(--c1);
+}
+.reloj{
+  font-size: 90vmin;
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  padding: .02em;
+  border: .005em solid var(--cb);
+}
+.sub_reloj{
+  font-size: .9em;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 .1em var(--cs);
+  border-radius: inherit;
+  overflow: hidden;
+  background-color: var(--c1);
+}
+.l_seconds{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: .003em;
+  height: 50%;
+  transform-origin: bottom;
+  &::before{
+    content: "";
+    position: absolute;
+    top: .025em;
+    width: 100%;
+    height: .02em;
+    background-color: var(--c2);
+  }
+}
+.l_seconds:nth-of-type(5n){
+  width: .01em;
+  &::before{
+    height: .035em;
+  }
+}
+.n_seconds{
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  width: 1.5em;
+  height: 42%;
+  font-size: .06em;
+  font-family: sans-serif;
+  transform-origin: bottom;
+  counter-increment: nvc;
+  &::before{
+    content: counter(nvc) + "";
+    display: block;
+    color: var(--c2);
+  }
+}
+
+.time_seconds{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  z-index: 10;
+  .bar_seconds{
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 48%;
+    background-color: var(--cbs);
+    width: .006em;
+    transform-origin: bottom;
+    animation: tiempo 60s infinite steps(60);
+    &::before{
+      content: "";
+      position: absolute;
+      top: 100%;
+      height: 8%;
+      width: 100%;
+      background-color: inherit;
+    }
+  }
+  &:before{
+    content: "";
+    position: absolute;
+    font-size: .03em;
+    width: 1em;
+    height: 1em;
+    border-radius: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: var(--cbs);
+  }
+}
+.time_minute{
+  width: 100%;
+  height: 100%;
+  .bar_minute{
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: .03em;
+    height: 42%;
+    background-color: var(--cbm);
+    border-radius: .05em;
+    animation: tiempo 3600s infinite linear;
+    transform-origin: bottom;
+  }
+}
+
+.time_hora{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  .bar_hora{
+    $zl: .045em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    margin: auto;
+    width: $zl;
+    height: 35%;
+    background-color: var(--cbh);
+    border-radius: $zl $zl 0 0;
+    animation: tiempo 21600s infinite linear;
+    &::before{
+      font-size: $zl;
+      content: "";
+      position: absolute;
+      top: calc(100% - (1em / 2));
+      width: 100%;
+      height: 1em;
+      background-color: inherit;
+      border-radius: 0 0 1em 1em;
+    }
+  }
+}
+
+.bar_{
+  &seconds,
+  &minute{
+  }
+}
+
+
+
+
+$r: 360deg / 60;
+@for $i from 1 through 60{
+  .ls#{$i}{
+    transform: rotate($r * $i)
+  }
+}
+$r: 360deg / 12;
+@for $i from 1 through 12{
+  .ns#{$i}{
+    transform: rotate($r * $i);
+    &::before{
+      transform: rotate($r * -$i)
+    }
+  }
+}
+
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.sidebar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  padding-top: 20px;
+  color: #818181;
+}
+
+.header, .sidebar a {
+  padding: 16px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+}
+
+.header {
+  background-color: #282828;
+  text-align: center;
+}
+
+.sidebar a {
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.submenu ul {
+  display: none;
+  list-style: none;
+  padding: 0;
+}
+
+.submenu:hover ul {
+  display: block;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+
+.submenu ul li {
+  background-color: #282828;
+  border-top: 1px solid #111;
+}
+
+.submenu ul li a {
+  padding: 12px;
+  display: block;
+}
+
+.contenido {
+  margin-left: 250px;
+  padding: 15px;
+}
+
+
+@keyframes tiempo{
+  to{
+    transform: rotate(360deg)
+  }
+}
+
